@@ -196,6 +196,162 @@ class LaraCart implements LaraCartContract
         return $cartItem;
     }
 
+
+    /**
+     *
+     * Adds the cartCustomer into the cart session
+     *
+     * @param $billingAddressPersonTitle
+     * @param $billingAddressFirstname
+     * @param $billingAddressLastname
+     * @param $billingAddressStreet
+     * @param $billingAddressHousenumber
+     * @param $billingAddressStreetAdditional
+     * @param $billingAddressZipCode
+     * @param $billingAddressCity
+     * @param $country
+     * @param $billingAddressPhone
+     * @param $billingAddressCellPhone
+     * @param $email
+     * @param $isGuestUser
+     * @param $logonPassword
+     * @param $logonPasswordVerify
+     * @return mixed
+     */
+    public function customer(
+        $billingAddressPersonTitle,
+        $billingAddressFirstname,
+        $billingAddressLastname,
+        $billingAddressStreet,
+        $billingAddressHousenumber,
+        $billingAddressStreetAdditional,
+        $billingAddressZipCode,
+        $billingAddressCity,
+        $country,
+        $billingAddressPhone,
+        $billingAddressCellPhone,
+        $email,
+        $isGuestUser,
+        $logonPassword,
+        $logonPasswordVerify
+    ) {
+
+        // TODO: validate input with validator
+
+        return $this->addCustomer(
+            new CartCustomer(
+                $billingAddressPersonTitle,
+                $billingAddressFirstname,
+                $billingAddressLastname,
+                $billingAddressStreet,
+                $billingAddressHousenumber,
+                $billingAddressStreetAdditional,
+                $billingAddressZipCode,
+                $billingAddressCity,
+                $country,
+                $billingAddressPhone,
+                $billingAddressCellPhone,
+                $email,
+                $isGuestUser,
+                $logonPassword
+            )
+        );
+    }
+
+    /**
+     *
+     * Add customer to session
+     *
+     * @param CartCustomer $cartCustomer
+     * @return CartCustomer
+     */
+    public function addCustomer(CartCustomer $cartCustomer)
+    {
+
+        $this->cart->customer = $cartCustomer;
+
+        \Event::fire('laracart.addCustomer', $cartCustomer);
+
+        $this->update();
+
+        return $cartCustomer;
+    }
+
+
+    /**
+     *
+     * Adds the Shippinginfo to the cart session
+     *
+     * @param $shipModeId
+     * @param $pickUpStoreId
+     * @param $shippingTo
+     * @param $shippingAddressPersonTitle
+     * @param $shippingAddressFirstname
+     * @param $shippingAddressLastname
+     * @param $shippingAddressStreet
+     * @param $shippingAddressHousenumber
+     * @param $shippingAddressStreetAdditional
+     * @param $shippingAddressZipCode
+     * @param $shippingAddressCity
+     * @param $country
+     * @return mixed
+     */
+    public function shipping(
+        $shipModeId,
+        $pickUpStoreId,
+        $shippingTo,
+        $shippingAddressPersonTitle,
+        $shippingAddressFirstname,
+        $shippingAddressLastname,
+        $shippingAddressStreet,
+        $shippingAddressHousenumber,
+        $shippingAddressStreetAdditional,
+        $shippingAddressZipCode,
+        $shippingAddressCity,
+        $country
+    ) {
+
+        // TODO: validate input with validator
+
+        return $this->addShipping(
+            new CartShipping(
+                $shipModeId,
+                $pickUpStoreId,
+                $shippingTo,
+                $shippingAddressPersonTitle,
+                $shippingAddressFirstname,
+                $shippingAddressLastname,
+                $shippingAddressStreet,
+                $shippingAddressHousenumber,
+                $shippingAddressStreetAdditional,
+                $shippingAddressZipCode,
+                $shippingAddressCity,
+                $country
+            )
+        );
+    }
+
+    /**
+     *
+     * Add shipping to session
+     *
+     * @param CartShipping $cartShipping
+     * @return CartShipping
+     */
+    public function addShipping(CartShipping $cartShipping)
+    {
+
+        $this->cart->shipping = $cartShipping;
+
+        \Event::fire('laracart.addShipping', $cartShipping);
+
+        $this->update();
+
+        return $cartShipping;
+    }
+    
+    
+
     /**
      * Finds a cartItem based on the itemHash
      *
@@ -223,6 +379,41 @@ class LaraCart implements LaraCartContract
         }
 
         return $items;
+    }
+
+    /**
+     *
+     * Get customer information
+     *
+     * @return array
+     */
+    public function getCustomer()
+    {
+        $customer = [];
+
+        if (isset($this->cart->customer) === true) {
+            $customer = $this->cart->customer;
+        }
+
+        return $customer;
+    }
+
+
+    /**
+     *
+     * Get shipping information
+     *
+     * @return array
+     */
+    public function getShipping()
+    {
+        $shipping = [];
+
+        if (isset($this->cart->shipping) === true) {
+            $shipping = $this->cart->shipping;
+        }
+
+        return $shipping;
     }
 
     /**

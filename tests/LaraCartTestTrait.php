@@ -45,24 +45,19 @@ trait LaraCartTestTrait
      * @param int $qty
      * @param int $price
      * @param bool $taxable
-     * @param array $options
      *
      * @return mixed
      */
-    private function addItem($qty = 1, $price = 1, $taxable = true, $options = [])
+    private function addItem($qty = 1, $price = 1, $taxable = true)
     {
-        if(empty($options)) {
-            $options = [
-                'b_test' => 'option_1',
-                'a_test' => 'option_2',
-            ];
-        }
         return $this->laracart->add(
             'itemID',
             'Testing Item',
             $qty,
-            $price,
-            $options,
+            $price, [
+                'b_test' => 'option_1',
+                'a_test' => 'option_2',
+            ],
             $taxable
         );
     }
