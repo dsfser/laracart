@@ -20,7 +20,6 @@ class CartCustomer
     public $City;
     public $country;
     public $Phone;
-    public $CellPhone;
     public $email;
     public $isGuestUser;
     public $logonPassword;
@@ -38,11 +37,10 @@ class CartCustomer
      * @param $City
      * @param $country
      * @param $Phone
-     * @param $CellPhone
      * @param $email
      * @param $logonPassword
      */
-    public function __construct($PersonTitle, $Firstname, $Lastname, $Street, $Housenumber, $StreetAdditional, $ZipCode, $City, $country, $Phone, $CellPhone, $email, $isGuestUser, $logonPassword)
+    public function __construct($PersonTitle, $Firstname, $Lastname, $Street, $Housenumber, $StreetAdditional, $ZipCode, $City, $country, $Phone, $email, $isGuestUser, $logonPassword)
     {
         $this->PersonTitle = $PersonTitle;
         $this->Firstname = $Firstname;
@@ -54,7 +52,6 @@ class CartCustomer
         $this->City = $City;
         $this->country = $country;
         $this->Phone = $Phone;
-        $this->CellPhone = $CellPhone;
         $this->email = $email;
         $this->isGuestUser = $isGuestUser;
         $this->logonPassword = $logonPassword;
