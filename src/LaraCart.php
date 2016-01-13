@@ -229,7 +229,6 @@ class LaraCart implements LaraCartContract
         $billingAddressCity,
         $country,
         $billingAddressPhone,
-        $billingAddressCellPhone,
         $email,
         $isGuestUser,
         $logonPassword,
@@ -250,7 +249,6 @@ class LaraCart implements LaraCartContract
                 $billingAddressCity,
                 $country,
                 $billingAddressPhone,
-                $billingAddressCellPhone,
                 $email,
                 $isGuestUser,
                 $logonPassword
