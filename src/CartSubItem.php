@@ -17,7 +17,6 @@ class CartSubItem
 
     public $locale;
 
-    public $items = [];
     public $internationalFormat;
     private $itemHash;
 
@@ -26,6 +25,9 @@ class CartSubItem
      */
     public function __construct($options)
     {
+
+        $this->options['items'] = [];
+
         foreach($options as $option => $value) {
             array_set($this->options, $option, $value);
         }
@@ -54,8 +56,8 @@ class CartSubItem
     {
         $price = $this->price;
 
-        if(isset($this->options['items'])) {
-            foreach ($this->options['items'] as $item) {
+        if(isset($this->items)) {
+            foreach ($this->items as $item) {
                 $price += $item->getPrice(false, false) + $item->subItemsTotal(false, false);
             }
         }
